@@ -2,12 +2,12 @@
   Working project - Not all functionality has yet been added.
 ## About Project
   I created this project to display my abilities using Canvas. The goal was to build off of a common Canvas block breaking game and add more complexity to it. The intension in this project was test and solidify my abilities using Javascript without the use of additional frameworks or libraries. I kept a similar intension in mind when adding styling to game. Thus, although the means of adding functionality through the use of pure Javascript seems tedious and longhanded, and the styling theme in some ways does not match (i.e. the styling of the custom popups compared to the styleing of the ingame experience), the target was to test my strengths with the basics.    
-### Languages Used
+## Languages Used
    * HTML
    * CSS
    * Javascript
 
-### Functionality
+## Functionality
 The following is a basic outline of the main functionality written into BrickBreaker using Javascript.
 
 1. Prompt for name, provide user chocie, show instructions, start game.
