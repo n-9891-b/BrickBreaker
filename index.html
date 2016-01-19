@@ -4,11 +4,85 @@
     <title>Web Game</title>
 </head>
 <style type="text/css">
-    body {
+    
+    #overlay {
+        display: block;
+        background: #FFF;
+        position: fixed;
+        opacity: 0.8;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+        z-index: 10;
+    }
+
+    .popup {
+        width: 550px;
+        height: 130px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin-left: -275px;
+        margin-top: -200px;
+        /*background-color: #000;*/
+        z-index: 10;
+        border-radius: 10px;
+        /*border-top-left-radius: 10px;
+        border-top-right-radius: 10px;*/
+    }
+
+    .popup > div > .popupHead {
+        padding: 10px;
+        /*background: #0040ff;*/
+        font-size: 19px;
+        color: #CCC;
+    } 
+
+    .popup > div > .popupBody {
+        padding: 10px;
+        background: #36f;
+        color: #FFF;
+        text-align: left;
+    }
+
+    .popup > div > .popupFoot {
+        padding-top: 10px;
+        padding-left: 10px;
+        padding-bottom: 10px;
+        padding-right: 20px;
+        background: #0040ff;
+        border-bottom-right-radius: 10px;
+        border-bottom-left-radius: 10px;
+        text-align: right;
+    }
+
+    button.ok {
+        padding: 5px 10px 5px 10px;
+        border-radius: 5px;
+        background-color: white;
+        font-family: Arial;
+        font-weight: bold;
+        font-size: 12px;
+        border-color: #CCC;
+        color: #73797A;
+        margin: auto;
+    }
+    button.ok:hover {
+        opacity: 0.8;
+        background: #7C93DE;
+        color: white;
+        cursor: pointer;
+    }
+
+    #single, #multiBall {
+        cursor: pointer;
+    }
+/*    body {
         margin: 0;
         padding: 0;
-        background-color: gray;
-    }
+        background-color: white;
+    }*/
 
 /*    .box {
         display: none;
@@ -52,59 +126,20 @@
         display: none;
     }*/
 
-    #start {
+/*    #start {
         width: 100px;
         height: 50px;
         border-radius: 5px;
         background-color: blue;
         font-family: 'Arial Black';
-        color: white;
+        color: 'white';
         padding: 2px;
         display: inline-block;
         margin: auto auto;
-    }
+    }*/
 
     #choice input {
         /*width: 90%;*/
-    }
-
-    #overlay {
-        background: #FFF;
-        position: fixed;
-        opacity: .5;
-        top: 0px;
-        left: 0px
-        width: 100%;
-        z-index: 10;
-    }
-
-    .popup {
-        width: 550px;
-        position: fixed;
-        left: 300px;
-        top: 100px;
-        background-color: #000;
-        border-radius: 5px;
-        z-index: 10;
-    }
-
-    .popup > div > popupHead {
-        padding: 10px;
-        background: #0040ff;
-        font-size: 19px;
-        color: #CCC;
-    } 
-
-    .popup > div > popupBody {
-        padding: 20px;
-        background: #36f;
-        color: #FFF;
-        text-align: right;
-    }
-
-    .popup > div > popupFoot {
-        padding: 10px;
-        background: #0040ff;
     }
 
     #askName, #gameType1, #instructions {
@@ -120,12 +155,23 @@
     }
 
     .prompt {
-        padding-left: 100px;
+        margin-left: 100px;
     }
 
     .promptName {
-        position-left: 100px;
+        position: relative;
+        display: block;
+        padding-left: 100px;
     }
+
+    #playerName {
+        color: white;
+    }
+/*
+    button.ok {
+        display: block;
+        float: right;
+    }*/
 
 </style>
 <body>
@@ -135,11 +181,11 @@
         <div>
             <div class='popupHead'>Welcome to Brick Breaker!</div>
             <div class='popupBody'>
-                <p class='prompt'>Please enter your name<p>
-                <input id='promptName' type='text'>
+                <label class='prompt'>Please enter your name:<label>
+                <input id='promptName' type='text' autofocus>
             </div>
             <div class='popupFoot'>
-                <button onclick='promptGame()'>Ok</button>
+                <button class='ok' onclick='promptGame()'>OK</button>
             </div>
         </div>
     </div>
@@ -151,7 +197,7 @@
                 <input id='multiBall' type='radio' name='game'>Play with multiple balls    
             </div>
             <div class='popupFoot'>
-                <button onclick='showInstructions()'>Ok</button>
+                <button class='ok' onclick='showInstructions()'>OK</button>
             </div>
         </div>
     </div>
@@ -159,11 +205,11 @@
         <div>
             <div class='popupHead'>Instructions</div>
             <div class='popupBody'>
-                <p>Use the left and right arrow keys to move the paddle at the bottom of the screen. Don't let the ball(s) reach the bottom, or you loose! Distroy as many balls as you can. If you reach 3000, you win!</p>
+                <p>Use the left and right arrow keys to move the paddle at the bottom of the screen. Don't let the ball(s) reach the bottom, or you loose! Distroy as many blocks as you can. If you reach 3000, you win!</p>
                 <p>Good luck!</p>
             </div>
             <div class='popupFoot'>
-                <button onclick='startGame()'>Start Game</button>
+                <button class='ok' onclick='startGame()'>START GAME</button>
             </div>
         </div>
     </div>
@@ -173,28 +219,6 @@
     </div>
     <!-- <div id='canvasBox' class='box'> -->
     <canvas id='myCanvas' class='box' width='1000' height='500'></canvas>
-    <!-- </div> -->
-<!--     <div id='gameType'>
-        <form id='choice' onsubmit='startGame()'>
-            <input id='single' type='radio' name='game' checked='checked'>Play with single ball
-            <input id='speed' type='radio' name='game'>Play with ball speed increase
-            <input id='multiBall'type='radio' name='game'>Play with multiple balls
-            <input id='multiBall' type='radio' name='game'>Play with multiple balls
-            <input id='start' type='button' onclick='startGame()' value='Start'>
-        </form>
-    </div> -->
-    
-
-<!--     <div id='gameType'>
-        <form>
-            <input id='speed' type='radio' name='game'>Play with ball speed increase
-            <input id='multiBall'type='radio' name='game'>Play with multiple balls
-            <input id='multiBallSpeed' type='radio' name='game'>Play with multiple balls increasing in speed
-        </form>
-    </div>
-    <div id='buttonBox'>
-    <button id='start' onclick='startGame()'>Start</button>
-    </div> -->
 
     <script>
         var score = parseInt(document.getElementById('score').innerHTML);
@@ -215,13 +239,7 @@
         var paddleY = canvas.height-paddleHeight;
         // var brickRowCount = 3;
         // var brickColumnCount = 5;
-        var brickNumber = 20;
-        // var brickWidth = Math.floor((Math.random()*100)+10);
-        // var brickHeight = Math.floor((Math.random()*100)+10);
-        // var brickPadding = Math.floor((Math.random()*30)+10);
-        // var brickOffsetTop = Math.floor((Math.random()*40)+20);
-        // var brickOffsetLeft = Math.floor((Math.random()*40)+20);
-        // var brickColor = "#" + Math.random().toString(16).slice(2,8);
+        var brickNumber = 10;
         var ballNumber = 5;
         var scoreCounter = 100;
         var bricks = [{x: Math.floor((Math.random()*1000)+1), 
@@ -259,10 +277,6 @@
                          status: 1});
         }
 
-        // (b.x < valX+valW && b.x+b.width > valX+valW && b.y < valY && b.y+b.height > valY) || (b.x < valX && b.x + b.width > valX && b.y < valY+valH && b.y+b.height > valY + valH)
-
-        //+Math.floor((Math.random()*30)+10)+Math.floor((Math.random()*40)+20)
-        //+Math.floor((Math.random()*30)+10)+Math.floor((Math.random()*40)+20)
         function addNewBrick() {
             var valX = Math.floor((Math.random()*1000)+1);
             var valY = Math.floor((Math.random()*400)+1);
@@ -309,23 +323,6 @@
                 }
             }
         }
-        // function drawBricks() {
-        //     for(c=0; c<brickColumnCount; c++) {
-        //         for(r=0; r<brickRowCount; r++) {
-        //             if (bricks[c][r].status == 1) {
-        //                 var brickX = (c*(brickWidth+brickPadding))+brickOffsetLeft;
-        //                 var brickY = (r*(brickHeight+brickPadding))+brickOffsetTop;
-        //                 bricks[c][r].x = brickX;
-        //                 bricks[c][r].y = brickY;
-        //                 ctx.beginPath();
-        //                 ctx.rect(brickX, brickY, brickWidth, brickHeight);
-        //                 ctx.fillStyle = brickColor;
-        //                 ctx.fill();
-        //                 ctx.closePath();
-        //             }
-        //         }
-        //     }
-        // }
 
         document.addEventListener('keydown', keyDownHandler, false);
         document.addEventListener('keyup', keyUpHandler, false);
@@ -338,6 +335,12 @@
             ctx.fill();
             ctx.closePath();
         }
+
+        // function enterKey(e) {
+        //     if (e.keyCode==13) {
+
+        //     }
+        // }
 
         function keyDownHandler(e) {
             if (e.keyCode==39) {
@@ -391,29 +394,13 @@
             }
         }
 
-        // function collisionDetection() {
-        //     for(c=0; c<brickColumnCount; c++) {
-        //         for(r=0; r<brickRowCount; r++) {
-        //             var b = bricks[c][r];
-        //             if (b.status == 1) {
-        //                 if(x > b.x && x < b.x+brickWidth && y > b.y && y < b.y+brickHeight) {
-        //                     dy = -dy;
-        //                     document.getElementById('score').innerHTML = score += 20;
-        //                     b.status = 0;
-
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
-//balls[balls.length-1]
         function drawBall() {
                 //ctx.clearRect(x-22, y-dy-22, x+20, y-dy+20);
                 //ctx.clearRect(0, 0, canvas.width, canvas.height);
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.ballRadius, 0, Math.PI*2);
                 ctx.fillStyle = '#FF0000';
-                ctx.strokeStyle = '#FFFF00'
+                ctx.strokeStyle = '#FFFF00';
                 ctx.fill();
                 ctx.stroke();
                 ctx.closePath();
@@ -427,7 +414,21 @@
             }
         }
 
+        function createPlayerId() {
+            var name = document.getElementById('promptName').value;
+            var nameDiv = document.createElement('div');
+            var section = document.getElementById('scoreEl')
+            nameDiv.id = 'playerName';
+            section.insertBefore(nameDiv, section.firstChild);
+            if (name==='') {
+                document.getElementById('playerName').innerHTML = 'Anonymous user is playing';    
+            } else {
+                document.getElementById('playerName').innerHTML = name + ' is playing';
+            }
+        }
+
         function startGame() {
+            createPlayerId();
             document.getElementById('instructions').style.display = 'none';
             document.getElementById('overlay').style.display = 'none';
             var multiBall = document.getElementById('multiBall').checked;
@@ -510,57 +511,6 @@
             document.getElementById('gameType1').style.display = 'none';
             document.getElementById('instructions').style.display = 'block';
         }
-
-        // function PopupBox() {
-        //     this.display = function() {
-        //         var winH = window.innerHeight;
-        //         var winW = window.innerWidth;
-        //         var overlay = document.getElementById('overlay');
-        //         var popup = document.querySelector('.popup');
-        //         overlay.style.height = winH + 'px';
-        //         overlay.style.width = winW + 'px';
-        //         popup.style.left = (winW/2) - (500/2) + 'px';
-        //         popup.style.top = (winH/2) - (300/2) + 'px';
-        //         document.getElementById('popupHead').innerHTML = 'Welcome to Brick Breaker!';
-        //         document.getElementById('popupBody').innerHTML =
-        //         document.getElementById('popupFooter').innerHTML = 
-        //     },
-
-        //     this.promptName = function(headText, bodyText, footText) {
-        //          '"Please enter your name" + <input id="nameInput" type="text">');
-        //         document.getElementById('popupFoot').innerHTML = '<button onclick="Alert.ok">buttonText</button>';
-        //         document.getElementById('askName').style.display = none;
-        //         GameType1.display();
-        //     },
-        //     this.promptGame = function() {
-        //         document.getElementById('gameType1').style.display = none;
-        //         Instructions.display();
-        //     }
-        // }
-
-        // var Welcome = new PopupBox;
-        // var GameType = new PopupBox;
-        // var Instructions = new PopupBox;
-
-        // function welcomeConfirm() {
-        //     document.getElementById('askName').style.display = none;
-        //     Welcome.display();
-        //     document.getElementById('popupHead').innerHTML = 'Welcome to Brick Breaker!';
-        //     document.getElementById('popupBody').innerHTML = '"Please enter your name" + <input id="nameInput" type="text">');
-        //     document.getElementById('popupFoot').innerHTML = '<button onclick="Alert.ok">buttonText</button>';
-
-        // }
-        // function promptGame() 
-
-        // function giveInstruct() {
-        //     document.getElementById('Instructions').style.display = none;
-        //     startGame();
-        // }
-
-        // var AskName = new PopupBox(, ;
-        // var GameType1 = new PopupBox;
-        // var Instructions = new PopupBox;
-        // AskName.display();
     </script>
 </body>
 </html>
