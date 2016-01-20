@@ -3,183 +3,15 @@
 <head>
     <title>Web Game</title>
 </head>
-<style type="text/css">
-    
-    #overlay {
-        display: block;
-        background: #FFF;
-        position: fixed;
-        opacity: 0.8;
-        top: 0px;
-        left: 0px;
-        width: 100%;
-        height: 100%;
-        z-index: 10;
-    }
+<link rel=stylesheet href="style.css">
 
-    .popup {
-        width: 550px;
-        height: 130px;
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        margin-left: -275px;
-        margin-top: -200px;
-        /*background-color: #000;*/
-        z-index: 10;
-        border-radius: 10px;
-        /*border-top-left-radius: 10px;
-        border-top-right-radius: 10px;*/
-    }
-
-    .popup > div > .popupHead {
-        padding: 10px;
-        /*background: #0040ff;*/
-        font-size: 19px;
-        color: #CCC;
-    } 
-
-    .popup > div > .popupBody {
-        padding: 10px;
-        background: #36f;
-        color: #FFF;
-        text-align: left;
-    }
-
-    .popup > div > .popupFoot {
-        padding-top: 10px;
-        padding-left: 10px;
-        padding-bottom: 10px;
-        padding-right: 20px;
-        background: #0040ff;
-        border-bottom-right-radius: 10px;
-        border-bottom-left-radius: 10px;
-        text-align: right;
-    }
-
-    button.ok {
-        padding: 5px 10px 5px 10px;
-        border-radius: 5px;
-        background-color: white;
-        font-family: Arial;
-        font-weight: bold;
-        font-size: 12px;
-        border-color: #CCC;
-        color: #73797A;
-        margin: auto;
-    }
-    button.ok:hover {
-        opacity: 0.8;
-        background: #7C93DE;
-        color: white;
-        cursor: pointer;
-    }
-
-    #single, #multiBall {
-        cursor: pointer;
-    }
-/*    body {
-        margin: 0;
-        padding: 0;
-        background-color: white;
-    }*/
-
-/*    .box {
-        display: none;
-    }*/
-
-    #scoreEl {
-        width: 200px;
-        height: 500px;
-        border-style: solid;
-        border-color: red;
-        background-color: black;
-        position: absolute;
-    }
-
-    #scoreBox {
-        margin: 100px 10px 0 10px;
-        color: red;
-        border-width: 1px;
-        border-style: solid;
-        border-color: gray;
-        background: black;
-        text-align: center;
-        font-family: 'Arial Black';
-    }
-
-    #score {
-        background: black;
-    }
-
-    canvas {
-        background: black;
-        border-width: 2px;
-        border-style: solid;
-        border-color: yellow;
-        float: right;
-        /*display: block;*/
-        /*margin: auto 0;*/
-    }
-
-/*    #gameType {
-        display: none;
-    }*/
-
-/*    #start {
-        width: 100px;
-        height: 50px;
-        border-radius: 5px;
-        background-color: blue;
-        font-family: 'Arial Black';
-        color: 'white';
-        padding: 2px;
-        display: inline-block;
-        margin: auto auto;
-    }*/
-
-    #choice input {
-        /*width: 90%;*/
-    }
-
-    #askName, #gameType1, #instructions {
-        background-color: blue;
-    }
-
-    #gameType1 {
-        display: none;
-    }
-
-    #instructions {
-        display: none;
-    }
-
-    .prompt {
-        margin-left: 100px;
-    }
-
-    .promptName {
-        position: relative;
-        display: block;
-        padding-left: 100px;
-    }
-
-    #playerName {
-        color: white;
-    }
-/*
-    button.ok {
-        display: block;
-        float: right;
-    }*/
-
-</style>
 <body>
 
     <div id='overlay'></div>
+
     <div id='askName' class='popup'>
         <div>
-            <div class='popupHead'>Welcome to Brick Breaker!</div>
+            <div class='popupHead'>Welcome to BrickBreaker!</div>
             <div class='popupBody'>
                 <label class='prompt'>Please enter your name:<label>
                 <input id='promptName' type='text' autofocus>
@@ -189,11 +21,12 @@
             </div>
         </div>
     </div>
+
     <div id='gameType1' class='popup'>
         <div>
             <div class='popupHead'>Please choose how you want to play</div>
             <div class='popupBody'>
-                <input id='single' type='radio' name='game' checked='checked'>Play with single ball
+                <input id='single' type='radio' name='game' checked='checked' autofocus>Play with single ball
                 <input id='multiBall' type='radio' name='game'>Play with multiple balls    
             </div>
             <div class='popupFoot'>
@@ -201,11 +34,12 @@
             </div>
         </div>
     </div>
+
     <div id='instructions' class='popup'>
         <div>
             <div class='popupHead'>Instructions</div>
             <div class='popupBody'>
-                <p>Use the left and right arrow keys to move the paddle at the bottom of the screen. Don't let the ball(s) reach the bottom, or you loose! Distroy as many blocks as you can. If you reach 3000, you win!</p>
+                <p>Use the left and right arrow keys or your mouse pad to move the paddle at the bottom of the screen. Don't let the ball(s) reach the bottom, or you loose! Distroy as many blocks as you can. If you reach 3000, you win!</p>
                 <p>Good luck!</p>
             </div>
             <div class='popupFoot'>
@@ -217,300 +51,34 @@
     <div id='scoreEl' class='box'>
         <div id='scoreBox'>Score:<p id='score'>0000</p></div>
     </div>
-    <!-- <div id='canvasBox' class='box'> -->
+
     <canvas id='myCanvas' class='box' width='1000' height='500'></canvas>
 
-    <script>
-        var score = parseInt(document.getElementById('score').innerHTML);
-        var canvas = document.getElementById('myCanvas');
-        var ctx = canvas.getContext('2d');
-        // var x = (Math.random()*(canvas.width-10)+10);
-        // var y = 20;
-        // var dx = 2;
-        // var dy = 1;
-        //var ballRadius = 20;
-        var rightPress = false;
-        var leftPress = false;
-        var upPress = false;
-        var downPress = false;
-        var paddleWidth = 100;
-        var paddleHeight = 10;
-        var paddleX = (canvas.width-paddleWidth)/2; 
-        var paddleY = canvas.height-paddleHeight;
-        // var brickRowCount = 3;
-        // var brickColumnCount = 5;
-        var brickNumber = 10;
-        var ballNumber = 5;
-        var scoreCounter = 100;
-        var bricks = [{x: Math.floor((Math.random()*1000)+1), 
-                         y: Math.floor((Math.random()*400)+1), 
-                         color: "#" + Math.random().toString(16).slice(2,8),
-                         width: Math.floor((Math.random()*50)+10),
-                         height: Math.floor((Math.random()*50)+10),
-                         status: 1}];
+    <div id='loser' class='popup'>
+        <div>
+            <div class='popupHead'>Game Over</div>
+            <div class='popupBody'>
+                <div>You Lost!</div>    
+            </div>
+            <div class='popupFoot'>
+                <button class='ok' onclick='document.location.reload()'>OK</button>
+            </div>
+        </div>
+    </div>
 
-        // var brickX = Math.floor((Math.random()*100)+10)+Math.floor((Math.random()*30)+10)+Math.floor((Math.random()*40)+20);
-        // var brickY = Math.floor((Math.random()*100)+10)+Math.floor((Math.random()*30)+10)+Math.floor((Math.random()*40)+20);
-        for (var j=1; j<brickNumber; j++) {
-            var valX = Math.floor((Math.random()*1000)+1);
-            var valY = Math.floor((Math.random()*400)+1);
-            var valW = Math.floor((Math.random()*50)+10);
-            var valH = Math.floor((Math.random()*50)+10);
-            var n=0;
-            while (n<bricks.length) {           //Checks that bricks are not drawn on each other
-                var b = bricks[n];
-                if ((b.x < valX && b.x+b.width > valX && b.y < valY && b.y+b.height > valY) || (b.x < valW && b.x+b.width > valW && b.y < valH && b.y+b.height > valH)) {
-                    console.log('This hit!');
-                    valX = Math.floor((Math.random()*1000)+1);
-                    valY = Math.floor((Math.random()*400)+1);
-                    valW = Math.floor((Math.random()*50)+10);
-                    valH = Math.floor((Math.random()*50)+10);
-                } else {
-                    n++;
-                }
-            }
-            bricks[j] = ({x: valX, 
-                         y: valY, 
-                         color: "#" + Math.random().toString(16).slice(2,8),
-                         width: valW,
-                         height: valH,
-                         status: 1});
-        }
+    <div id='winner' class='popup'>
+        <div>
+            <div class='popupHead'>WINNER!</div>
+            <div class='popupBody'>
+                <div>Congradulations! You won!</div>    
+            </div>
+            <div class='popupFoot'>
+                <button class='ok' onclick='document.location.reload()'>OK</button>
+            </div>
+        </div>
+    </div>
 
-        function addNewBrick() {
-            var valX = Math.floor((Math.random()*1000)+1);
-            var valY = Math.floor((Math.random()*400)+1);
-            var valW = Math.floor((Math.random()*50)+10);
-            var valH = Math.floor((Math.random()*50)+10);
-            var n=0;
-            while (n<bricks.length) {           //Checks that bricks are not drawn on each other
-                var b = bricks[n];
-                if ((b.x < valX && b.x+b.width > valX && b.y < valY && b.y+b.height > valY) || (b.x < valW && b.x+b.width > valW && b.y < valH && b.y+b.height > valH)) {
-                    console.log('Hit!')
-                    valX = Math.floor((Math.random()*1000)+1);
-                    valY = Math.floor((Math.random()*400)+1);
-                    valW = Math.floor((Math.random()*50)+10);
-                    valH = Math.floor((Math.random()*50)+10);
-                } else {
-                    n++;
-                }
-            }
-            bricks.push({x: valX, 
-                         y: valY, 
-                         color: "#" + Math.random().toString(16).slice(2,8),
-                         width: valW,
-                         height: valH,
-                         status: 1});
-        }
+    <script type="text/javascript" src='script.js'></script>
 
-        function drawNewBrick() {
-            var newBrick = bricks[bricks.length-1];
-            ctx.beginPath();
-            ctx.rect(newBrick.x, newBrick.y, newBrick.width, newBrick.height);
-            ctx.fillStyle = newBrick.color;
-            ctx.fill();
-            ctx.closePath();
-        }
-
-        function drawBricks() {
-            for(var i=0; i<bricks.length; i++) {
-                if (bricks[i].status === 1) {
-                    ctx.beginPath();
-                    ctx.rect(bricks[i].x, bricks[i].y, bricks[i].width, bricks[i].height);
-                    ctx.fillStyle = bricks[i].color;
-                    ctx.fill();
-                    ctx.closePath();
-                }
-            }
-        }
-
-        document.addEventListener('keydown', keyDownHandler, false);
-        document.addEventListener('keyup', keyUpHandler, false);
-        
-        function drawPaddle() {
-            //ctx.clearRect();
-            ctx.beginPath();
-            ctx.rect(paddleX, paddleY, paddleWidth, paddleHeight)
-            ctx.fillStyle = '#D2691E';
-            ctx.fill();
-            ctx.closePath();
-        }
-
-        // function enterKey(e) {
-        //     if (e.keyCode==13) {
-
-        //     }
-        // }
-
-        function keyDownHandler(e) {
-            if (e.keyCode==39) {
-                rightPress = true;
-            } else if (e.keyCode==37) {
-                leftPress = true;
-            } else if (e.keyCode==38) {
-                upPress = true;
-            } else if (e.keyCode==40) {
-                downPress = true;
-            }
-        }
-
-       function keyUpHandler(e) {
-            if (e.keyCode==39) {
-                rightPress = false;
-            } else if (e.keyCode==37) {
-                leftPress = false;
-            } else if (e.keyCode==38) {
-                upPress = false;
-            } else if (e.keyCode==40) {
-                downPress = false;
-            }
-        }
-
-        function brickCollisionDetection() {
-            for (var k=0; k<bricks.length; k++) {
-                var b = bricks[k];
-                if (b.status === 1) {
-                    if (this.x+this.ballRadius > b.x && this.x-this.ballRadius < b.x + b.width && this.y+this.ballRadius > b.y && this.y-this.ballRadius < b.y + b.height) {
-                        document.getElementById('score').innerHTML = score += 20;
-                        this.dy = this.dy*-1;
-                        b.status = 0;
-                        //clearRect(b.x, b.y, b.width, b.height);
-
-                    addNewBrick();
-                    drawNewBrick();
-                    }
-                }
-            }
-        }
-
-        function ballCollisionDetection() {
-            for (var j=0;j<balls.length;j++) {
-                var b = balls[j];
-                if (this != b) {
-                    if (this.x+this.ballRadius > b.x-b.ballRadius && this.x-this.ballRadius < b.x+b.ballRadius && this.y+this.ballRadius > b.y-b.ballRadius && this.y-this.ballRadius < b.y + b.ballRadius) {
-                        this.dy = this.dy*-1;
-                    }
-                }
-            }
-        }
-
-        function drawBall() {
-                //ctx.clearRect(x-22, y-dy-22, x+20, y-dy+20);
-                //ctx.clearRect(0, 0, canvas.width, canvas.height);
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.ballRadius, 0, Math.PI*2);
-                ctx.fillStyle = '#FF0000';
-                ctx.strokeStyle = '#FFFF00';
-                ctx.fill();
-                ctx.stroke();
-                ctx.closePath();
-        }
-
-        var balls = [{x: (Math.random()*(canvas.width-20)+20), y: 20, drawing: drawBall, ballRadius: 20, dx: 2, dy: 1, brickCollision: brickCollisionDetection, ballCollision: ballCollisionDetection}];
-
-        function addNewBall() {
-            if (balls.length<=ballNumber) {
-                balls.push({x: (Math.random()*(canvas.width-10)+10), y: 20, drawing: drawBall, ballRadius: 20, dx: 2, dy: 1, brickCollision: brickCollisionDetection, ballCollision: ballCollisionDetection});
-            }
-        }
-
-        function createPlayerId() {
-            var name = document.getElementById('promptName').value;
-            var nameDiv = document.createElement('div');
-            var section = document.getElementById('scoreEl')
-            nameDiv.id = 'playerName';
-            section.insertBefore(nameDiv, section.firstChild);
-            if (name==='') {
-                document.getElementById('playerName').innerHTML = 'Anonymous user is playing';    
-            } else {
-                document.getElementById('playerName').innerHTML = name + ' is playing';
-            }
-        }
-
-        function startGame() {
-            createPlayerId();
-            document.getElementById('instructions').style.display = 'none';
-            document.getElementById('overlay').style.display = 'none';
-            var multiBall = document.getElementById('multiBall').checked;
-            //document.getElementById('gameType').style.display = 'none';
-            //document.getElementById('scoreEl').style.display = 'inline-block';
-            //document.getElementById('myCanvas').style.display = 'inline-block';
-
-            function moveBall() {
-                if (score>=3000) {
-                    alert('You won the game!')
-                    document.location.reload();
-                }
-
-                ctx.clearRect(0, 0, canvas.width, canvas.height)
-                
-                //ctx.clearRect();
-                drawBricks();
-                if (multiBall) {
-                    if (score>=scoreCounter) {
-                        addNewBall();
-                        scoreCounter+=100;
-                    }
-                }
-                
-                for (var l=0;l<balls.length;l++) {
-                    var ball = balls[l];
-
-                    ball.drawing();    
-                    drawPaddle();
-                    ball.brickCollision();
-                    ball.ballCollision();
-
-                    if (ball.x+ball.dx>canvas.width-ball.ballRadius || ball.x+ball.dx<ball.ballRadius) {
-                        ball.dx = ball.dx*-1;
-                        //console.log('This Hit!')
-                    }
-
-                    if (ball.x+ball.dx>canvas.width-ball.ballRadius || ball.x+ball.dx<ball.ballRadius) {
-                        ball.dx = ball.dx*-1;
-                    }
-
-                    if (ball.y+ball.dy<ball.ballRadius) {
-                        ball.dy = ball.dy*-1;
-                    } else if (ball.y + ball.dy > canvas.height-ball.ballRadius) {
-                        if (ball.x > paddleX && ball.x < paddleX + paddleWidth && score<3000) {
-                            ball.dy = ball.dy*-1;
-                            document.getElementById('score').innerHTML = score += 10;
-                        } else {
-                            alert('GAME OVER');
-                            document.location.reload();
-                        }
-                    }
-                    ball.x += ball.dx;
-                    ball.y += ball.dy;
-                }
-
-                if (rightPress && paddleX<canvas.width-paddleWidth) {
-                    paddleX += 5;
-                    //ctx.clearRect(paddleX-7, canvas.height-paddleHeight, paddleWidth, paddleHeight);
-                } else if (leftPress && paddleX>0){
-                    paddleX -= 5;
-                    //ctx.clearRect(paddleX+7, canvas.height-paddleHeight, paddleWidth, paddleHeight);
-                } else if (upPress && paddleY>canvas.height/2) {
-                    paddleY -= 1;
-                } else if (downPress && paddleY<canvas.height-paddleHeight) {
-                    paddleY += 1;
-                }
-
-            }
-
-            setInterval(moveBall, 10);
-        }
-
-        function promptGame() {
-            document.getElementById('askName').style.display = 'none';
-            document.getElementById('gameType1').style.display = 'block';
-        }
-
-        function showInstructions() {
-            document.getElementById('gameType1').style.display = 'none';
-            document.getElementById('instructions').style.display = 'block';
-        }
-    </script>
 </body>
 </html>
