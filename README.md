@@ -23,5 +23,5 @@ The following is a basic outline of the main functionality written into BrickBre
 2. Prevent new ball from appearing in same place as other balls.
 3. Fix ball direction when bouncing off of each other.
 4. Fix if brick has similar color to background, change the brick color.
-5. Add Lives feature.
-6. Add Choose Theme.
+5. Add lives feature.
+6. Add choose theme.
