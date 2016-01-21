@@ -125,11 +125,86 @@
             }
         }
 
-        function brickCollisionDetection() {                //detect ball and brick collision
+        function collisionSound() {                                         //play sound on brick collision
+            var sound = new Audio('Whip-SoundBible.com-1988767601.mp3');
+            sound.play();
+        }
+
+        function brickCollisionDetection() {                //detect ball and brick collision and send ball in opposite direction
             for (var k=0; k<bricks.length; k++) {
                 var b = bricks[k];
                 if (b.status === 1) {
-                    if (this.x+this.ballRadius > b.x && this.x-this.ballRadius < b.x + b.width && this.y+this.ballRadius > b.y && this.y-this.ballRadius < b.y + b.height) {
+                   if (this.x+this.ballRadius > b.x && this.x+this.ballRadius < b.x + 2 && 
+                        this.y+this.ballRadius > b.y && this.y-this.ballRadius < b.y + b.height && this.dx==Math.abs(this.dx) && this.dy==Math.abs(this.dy)) {
+                        collisionSound();
+                        document.getElementById('score').innerHTML = score += 20;
+                        this.dx = this.dx*-1;
+                        b.status = 0;
+                        addNewBrick();
+                        drawNewBrick();
+                    }
+                    if (this.x+this.ballRadius > b.x && this.x+this.ballRadius < b.x + 2 && 
+                        this.y+this.ballRadius > b.y && this.y-this.ballRadius < b.y + b.height && this.dx==Math.abs(this.dx) && this.dy!=Math.abs(this.dy)) {
+                        collisionSound();
+                        document.getElementById('score').innerHTML = score += 20;
+                        this.dx = this.dx*-1;
+                        b.status = 0;
+                        addNewBrick();
+                        drawNewBrick();
+                    }
+
+                    if (this.x-this.ballRadius > b.x + b.width-2 && this.x-this.ballRadius < b.x + b.width && 
+                        this.y+this.ballRadius > b.y && this.y-this.ballRadius < b.y + b.height && this.dx!=Math.abs(this.dx) && this.dy==Math.abs(this.dy)) {
+                        collisionSound();
+                        document.getElementById('score').innerHTML = score += 20;
+                        this.dx = this.dx*-1;
+                        b.status = 0;
+                        addNewBrick();
+                        drawNewBrick();
+                    }
+                    if (this.x+this.ballRadius > b.x + b.width-2 && this.x-this.ballRadius < b.x + b.width && 
+                        this.y+this.ballRadius > b.y && this.y-this.ballRadius < b.y + b.height && this.dx!=Math.abs(this.dx) && this.dy!=Math.abs(this.dy)) {
+                        collisionSound();
+                        document.getElementById('score').innerHTML = score += 20;
+                        this.dx = this.dx*-1;
+                        b.status = 0;
+                        addNewBrick();
+                        drawNewBrick();
+                    }
+
+                     if (this.x+this.ballRadius > b.x && this.x-this.ballRadius < b.x + b.width && 
+                        this.y+this.ballRadius > b.y && this.y+this.ballRadius < b.y + 2 && this.dx==Math.abs(this.dx) && this.dy==Math.abs(this.dy)) {
+                        collisionSound();
+                        document.getElementById('score').innerHTML = score += 20;
+                        this.dy = this.dy*-1;
+                        b.status = 0;
+                        addNewBrick();
+                        drawNewBrick();
+                    }
+
+                    if (this.x+this.ballRadius > b.x && this.x-this.ballRadius < b.x + b.width && 
+                        this.y+this.ballRadius > b.y && this.y+this.ballRadius < b.y + 2 && this.dx!=Math.abs(this.dx) && this.dy==Math.abs(this.dy)) {
+                        collisionSound();
+                        document.getElementById('score').innerHTML = score += 20;
+                        this.dy = this.dy*-1;
+                        b.status = 0;
+                        addNewBrick();
+                        drawNewBrick();
+                    }
+
+                   if (this.x+this.ballRadius > b.x && this.x-this.ballRadius < b.x + b.width && 
+                        this.y-this.ballRadius > b.y + b.height-2 && this.y-this.ballRadius < b.y + b.height && this.dx==Math.abs(this.dx) && this.dy!=Math.abs(this.dy)) {
+                        collisionSound();
+                        document.getElementById('score').innerHTML = score += 20;
+                        this.dy = this.dy*-1;
+                        b.status = 0;
+                        addNewBrick();
+                        drawNewBrick();
+                    }
+
+                    if (this.x+this.ballRadius > b.x && this.x-this.ballRadius < b.x + b.width && 
+                        this.y-this.ballRadius > b.y + b.height-2 && this.y-this.ballRadius < b.y + b.height && this.dx!=Math.abs(this.dx) && this.dy!=Math.abs(this.dy)) {
+                        collisionSound();
                         document.getElementById('score').innerHTML = score += 20;
                         this.dy = this.dy*-1;
                         b.status = 0;
@@ -204,7 +279,8 @@
             }
         }
 
-        function startGame() {                                              //initializes game
+        function startGame() {              
+            document.removeEventListener('keydown', enterStartGame);                                //initializes game
             createPlayerId();
             document.getElementById('instructions').style.display = 'none';
             document.getElementById('overlay').style.display = 'none';
@@ -245,7 +321,7 @@
                     if (ball.y+ball.dy<ball.ballRadius) {                                       //changes direction of ball if it hits the top of the canvas          
                         ball.dy = ball.dy*-1;
                     } else if (ball.y + ball.dy > canvas.height-ball.ballRadius) {
-                        if (ball.x > paddleX && ball.x < paddleX + paddleWidth && score<3000) { //checks to see if ball hit paddle or bottom of canvas
+                        if (ball.x > paddleX && ball.x < paddleX + paddleWidth && score<1000) { //checks to see if ball hit paddle or bottom of canvas
                             ball.dy = ball.dy*-1;
                         } else {                                                                //displays loser popup if ball his canvas bottom and ends startGame execution
                             displayLoser();
