@@ -73,6 +73,7 @@
         document.addEventListener('keydown', keyDownHandler, false); // event handlers for paddle movement
         document.addEventListener('keyup', keyUpHandler, false);
         document.addEventListener('keydown', enterPromptGame, false); //event handler for moving to next popup/begin StartGame function
+        document.addEventListener('mousemove', mouseMoveHandler, false);   
         
         function drawPaddle() {                                     //draw paddle on canvas
             ctx.beginPath();
@@ -237,7 +238,7 @@
         }
 
         function addNewBall() {                             //add new ball to canvas
-            if (balls.length<=ballNumber) {
+            if (balls.length<ballNumber) {
                 balls.push({x: (Math.random()*(canvas.width-10)+10), y: 20, drawing: drawBall, ballRadius: 20, dx: 2, dy: 1, brickCollision: brickCollisionDetection, ballCollision: ballCollisionDetection});
             }
         }
@@ -339,7 +340,7 @@
                 } else if (leftPress && paddleX>0){
                     paddleX -= 5;
                 } 
-                document.addEventListener('mousemove', mouseMoveHandler, false);    
+                 
             }
             
             setInterval(moveBall, 10);
