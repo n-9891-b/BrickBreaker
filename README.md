@@ -10,9 +10,9 @@
 ## Functionality
 The following is a basic outline of the main functionality written into BrickBreaker using Javascript.
 
-1. Prompt for name, provide user chocie, show instructions, start game.
+1. Prompt for name, provide user choice, show instructions, start game.
 2. Balls bouce off walls as well as other balls and paddle on impact.
-3. Paddle is move using left and right arrow keys.
+3. Paddle is moved using left and right arrow keys as well as the mouse pad.
 4. Bricks disappear when ball hits, ball moves in opposite direction, new brick is generated in random postion with random size and color, score is incremented.
 5. If playing with multiple balls has been chosen, new ball is generated when given score is reached.
 6. Game is won if end score is reach.
@@ -23,4 +23,5 @@ The following is a basic outline of the main functionality written into BrickBre
 2. Fix ball direction when bouncing off of each other.
 3. Fix if brick has similar color to background, change the brick color.
 4. Add lives feature.
-5. Add choose theme feature.
+5. Add multilevel feature.
+6. Add choose theme feature.
