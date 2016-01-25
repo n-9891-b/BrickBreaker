@@ -23,5 +23,5 @@ The following is a basic outline of the main functionality written into BrickBre
 2. Fix ball direction when bouncing off of each other.
 3. Fix if brick has similar color to background, change the brick color.
 4. Add lives feature.
-5. Add multilevel feature.
+5. Add multi-level feature.
 6. Add choose theme feature.
